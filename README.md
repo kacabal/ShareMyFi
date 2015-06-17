@@ -1,0 +1,2 @@
+# ShareMyFi
+Share Wifi Credentials
