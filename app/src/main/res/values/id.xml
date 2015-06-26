@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="ID_WIFI_LIST_MAIN" type="id"></item>
+    <item name="ID_MAIN_ACTION_BUTTONS" type="id"></item>
+    <item name="ID_ACTION_DELETE" type="id"></item>
+    <item name="ID_ACTION_ADD" type="id"></item>
+</resources>

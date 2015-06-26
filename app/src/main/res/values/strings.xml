@@ -3,4 +3,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="TXT_ACTION_DELETE_ITEM">Delete</string>
+    <string name="TXT_ACTION_ADD_ITEM">Add</string>
 </resources>
