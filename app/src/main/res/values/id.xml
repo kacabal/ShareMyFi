@@ -5,4 +5,9 @@
     <item name="ID_ACTION_DELETE" type="id"></item>
     <item name="ID_ACTION_ADD" type="id"></item>
     <item name="ID_ACTION_ADD_TOOLBAR" type="id"></item>
+    <item name="ID_ACTION_SAVE_WIFI_INFO" type="id"></item>
+    <item name="ID_SSID_GROUP" type="id"></item>
+    <item name="ID_SSID_INPUT" type="id"></item>
+    <item name="ID_PASS_GROUP" type="id"></item>
+    <item name="ID_PASS_INPUT" type="id"></item>
 </resources>

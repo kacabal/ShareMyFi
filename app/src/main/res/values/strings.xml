@@ -6,4 +6,9 @@
     <string name="TXT_ACTION_DELETE_ITEM">Delete</string>
     <string name="TXT_ACTION_ADD_ITEM">Add</string>
     <string name="TXT_ACTION_ADD_WIFI">Add Wifi Information</string>
+    <string name="TXT_ADDED_COLON">Added:</string>
+    <string name="TXT_SSID_COLON">SSID:</string>
+    <string name="TXT_SSID_HINT">Enter Wifi name</string>
+    <string name="TXT_PASSWORD_COLON">Password:</string>
+    <string name="TXT_PASSWORD_HINT">Enter Password</string>
 </resources>
