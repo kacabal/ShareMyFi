@@ -1,5 +1,6 @@
 package com.kolo.karl.sharemyfi;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -22,6 +23,7 @@ public class AddWifi extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
 
+        final Context ctx = this;
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.ID_ACTION_SAVE_WIFI_INFO);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,7 +31,7 @@ public class AddWifi extends AppCompatActivity {
                 EditText ssidInput = (EditText)findViewById(R.id.ID_SSID_INPUT);
                 EditText passInput = (EditText)findViewById(R.id.ID_PASS_INPUT);
 
-                StorageUtil storageUtil = new StorageUtil();
+                StorageUtil storageUtil = new StorageUtil(ctx);
                 if (storageUtil.addWifiInfo(ssidInput.getText().toString(),
                         passInput.getText().toString()) == StorageUtil.ADDED_OK)
                 {
