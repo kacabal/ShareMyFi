@@ -1,6 +1,8 @@
 package com.kolo.karl.sharemyfi;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -33,13 +35,29 @@ public class AddWifi extends AppCompatActivity {
 
                 StorageUtil storageUtil = new StorageUtil(ctx);
                 if (storageUtil.addWifiInfo(ssidInput.getText().toString(),
-                        passInput.getText().toString()) == StorageUtil.ADDED_OK)
+                                            passInput.getText().toString()) == StorageUtil.ADDED_OK)
                 {
                     String toastMsg = getString(R.string.TXT_ADDED_COLON) + " " + ssidInput.getText();
                     Toast.makeText(AddWifi.this, toastMsg, Toast.LENGTH_SHORT).show();
+                    finish();
                 }
-
-                finish();
+                else
+                {
+                    AlertDialog err = new AlertDialog.Builder(AddWifi.this).create();
+                    err.setTitle(R.string.TXT_ADD_FAILED_TITLE);
+                    err.setMessage(getApplication().getString(R.string.TXT_ADD_FAILED));
+                    err.setButton(AlertDialog.BUTTON_POSITIVE,
+                            getApplication().getText(R.string.TXT_OK),
+                            new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i)
+                                {
+                                    finish();
+                                }
+                            });
+                    err.show();
+                }
             }
         });
     }

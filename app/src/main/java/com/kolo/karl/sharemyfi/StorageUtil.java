@@ -16,6 +16,7 @@ public class StorageUtil extends SQLiteOpenHelper
 
     // db information
     public static final int DB_VERSION = 1;
+    public static final int DB_ERROR = -1;
     public static final String DB_NAME = "wifiInfo.db";
 
     // StorageUtil returns
@@ -60,6 +61,10 @@ public class StorageUtil extends SQLiteOpenHelper
 
         long id = this.getWritableDatabase().insert(WifiInfoContract.InfoEntry.TABLE_NAME, null, values);
         Log.d(TAG, "ID: " + id);
-        return ADDED_OK;
+
+        if (id == DB_ERROR)
+            return ADDED_GENERIC_ERROR;
+        else
+            return ADDED_OK;
     }
 }
