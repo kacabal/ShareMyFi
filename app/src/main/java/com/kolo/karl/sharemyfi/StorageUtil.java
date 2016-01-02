@@ -33,7 +33,7 @@ public class StorageUtil extends SQLiteOpenHelper
     {
         String cmd = "CREATE TABLE " + WifiInfoContract.InfoEntry.TABLE_NAME +
                 "( " + WifiInfoContract.InfoEntry._ID + " INTEGER PRIMARY KEY," +
-                WifiInfoContract.InfoEntry.SSID + " TEXT NOT NULL," +
+                WifiInfoContract.InfoEntry.SSID + " TEXT NOT NULL UNIQUE," +
                 WifiInfoContract.InfoEntry.PASS + " TEXT NOT NULL," +
                 WifiInfoContract.InfoEntry.SALT + " TEXT NOT NULL )";
         try
@@ -59,7 +59,9 @@ public class StorageUtil extends SQLiteOpenHelper
         values.put(WifiInfoContract.InfoEntry.PASS, pass);
         values.put(WifiInfoContract.InfoEntry.SALT, pass);
 
-        long id = this.getWritableDatabase().insert(WifiInfoContract.InfoEntry.TABLE_NAME, null, values);
+        SQLiteDatabase db = this.getWritableDatabase();
+        long id = db.insertWithOnConflict(WifiInfoContract.InfoEntry.TABLE_NAME,
+                                          null, values, SQLiteDatabase.CONFLICT_REPLACE);
         Log.d(TAG, "ID: " + id);
 
         if (id == DB_ERROR)

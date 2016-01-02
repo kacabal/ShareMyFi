@@ -37,7 +37,7 @@ public class AddWifi extends AppCompatActivity {
                 if (storageUtil.addWifiInfo(ssidInput.getText().toString(),
                                             passInput.getText().toString()) == StorageUtil.ADDED_OK)
                 {
-                    String toastMsg = getString(R.string.TXT_ADDED_COLON) + " " + ssidInput.getText();
+                    String toastMsg = getString(R.string.TXT_SAVED_COLON) + " " + ssidInput.getText();
                     Toast.makeText(AddWifi.this, toastMsg, Toast.LENGTH_SHORT).show();
                     finish();
                 }

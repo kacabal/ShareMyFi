@@ -8,6 +8,7 @@
     <string name="TXT_ACTION_ADD_ITEM">Add</string>
     <string name="TXT_ACTION_ADD_WIFI">Add Wifi Information</string>
     <string name="TXT_ADDED_COLON">Added:</string>
+    <string name="TXT_SAVED_COLON">Saved:</string>
     <string name="TXT_ADD_FAILED">Save failed. Try again.</string>
     <string name="TXT_ADD_FAILED_TITLE">Error</string>
     <string name="TXT_SSID_COLON">SSID:</string>
