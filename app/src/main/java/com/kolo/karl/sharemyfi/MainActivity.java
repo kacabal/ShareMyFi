@@ -1,33 +1,19 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 package com.kolo.karl.sharemyfi;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CursorAdapter;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
+    public static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +26,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(addNew);
             }
         });
+
+        initItems();
+    }
+
+    private void initItems()
+    {
+        StorageUtil storageUtil = new StorageUtil(this);
+        Cursor c = storageUtil.getSSIDs();
+
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
+                android.R.layout.simple_list_item_1,
+                c, new String[]{WifiInfoContract.InfoEntry.SSID},
+                new int[]{android.R.id.text1},
+                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        ListView listView = (ListView)findViewById(R.id.ID_WIFI_LIST_MAIN);
+        listView.setAdapter(adapter);
     }
 
     @Override

@@ -2,10 +2,14 @@ package com.kolo.karl.sharemyfi;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by karl on 12/29/15.
@@ -52,6 +56,12 @@ public class StorageUtil extends SQLiteOpenHelper
 
     }
 
+    /*
+    Saves Wifi information from user into databes
+
+    TODO: need to bind variables
+    TODO: secure passwords
+     */
     public int addWifiInfo(String ssid, String pass)
     {
         ContentValues values = new ContentValues();
@@ -61,12 +71,26 @@ public class StorageUtil extends SQLiteOpenHelper
 
         SQLiteDatabase db = this.getWritableDatabase();
         long id = db.insertWithOnConflict(WifiInfoContract.InfoEntry.TABLE_NAME,
-                                          null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                null, values, SQLiteDatabase.CONFLICT_REPLACE);
         Log.d(TAG, "ID: " + id);
 
         if (id == DB_ERROR)
             return ADDED_GENERIC_ERROR;
         else
             return ADDED_OK;
+    }
+
+    public Cursor getSSIDs()
+    {
+        String[] projection = {
+            WifiInfoContract.InfoEntry.SSID,
+            WifiInfoContract.InfoEntry._ID
+        };
+        String sortOrder = WifiInfoContract.InfoEntry.SSID + " ASC";
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        return db.query(WifiInfoContract.InfoEntry.TABLE_NAME,
+                        projection,
+                        null, null, null, null, sortOrder);
     }
 }
