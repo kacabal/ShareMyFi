@@ -2,14 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal"
               android:layout_width="match_parent"
+              android:descendantFocusability="blocksDescendants"
               android:layout_height="@dimen/main_info_field_height">
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New CheckBox"
-        android:id="@+id/checkBox"
+        android:id="@id/ID_WIFI_INFO_CHECKBOX"
         android:layout_gravity="center_vertical"
         android:textAppearance="?android:attr/textAppearanceMedium"
     />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@id/ID_WIFI_INFO_CHECKBOX_LABEL"
+        android:gravity="center_vertical"/>
 </LinearLayout>

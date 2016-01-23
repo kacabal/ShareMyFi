@@ -1,15 +1,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context=".MainActivity">
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@id/ID_WIFI_LIST_MAIN"
-        android:layout_weight="1" />
+        />
 
     <LinearLayout
         android:gravity="bottom|right"
@@ -19,21 +23,23 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:id="@id/ID_MAIN_ACTION_BUTTONS">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/TXT_ACTION_DELETE_ITEM"
-            android:textAllCaps="false"
-            android:id="@id/ID_ACTION_DELETE"
-            android:drawableLeft="@android:drawable/ic_delete" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/TXT_ACTION_ADD_ITEM"
-            android:textAllCaps="false"
-            android:id="@id/ID_ACTION_ADD"
-            android:drawableLeft="@android:drawable/ic_input_add" />
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@id/ID_ACTION_DELETE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="@dimen/fab_del_right_margin"
+            android:visibility="gone"
+            app:fabSize="mini"
+            android:src="@android:drawable/ic_delete" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@id/ID_ACTION_ADD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:src="@android:drawable/ic_input_add" />
     </LinearLayout>
 
 </RelativeLayout>

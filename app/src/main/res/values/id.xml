@@ -11,4 +11,6 @@
     <item name="ID_SSID_ITEM" type="id"></item>
     <item name="ID_PASS_GROUP" type="id"></item>
     <item name="ID_PASS_INPUT" type="id"></item>
+    <item name="ID_WIFI_INFO_CHECKBOX" type="id"></item>
+    <item name="ID_WIFI_INFO_CHECKBOX_LABEL" type="id"></item>
 </resources>

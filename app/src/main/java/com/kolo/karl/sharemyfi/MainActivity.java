@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -14,6 +16,7 @@ import android.widget.SimpleCursorAdapter;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
+    private int _selectionCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +39,37 @@ public class MainActivity extends AppCompatActivity {
         Cursor c = storageUtil.getSSIDs();
 
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
-                android.R.layout.simple_list_item_1,
+                R.layout.wifi_info,
                 c, new String[]{WifiInfoContract.InfoEntry.SSID},
-                new int[]{android.R.id.text1},
+                new int[]{R.id.ID_WIFI_INFO_CHECKBOX_LABEL},
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         ListView listView = (ListView)findViewById(R.id.ID_WIFI_LIST_MAIN);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                CheckBox checkBox = (CheckBox) view.findViewById(R.id.ID_WIFI_INFO_CHECKBOX);
+                checkBox.performClick();
+
+                if (checkBox.isChecked())
+                    _selectionCount++;
+                else
+                    _selectionCount--;
+
+                View deleteBtn = getWindow().findViewById(R.id.ID_ACTION_DELETE);
+                if (_selectionCount <= 0)
+                {
+                    _selectionCount = 0;
+                    deleteBtn.setVisibility(View.GONE);
+                }
+                else
+                {
+                    deleteBtn.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     @Override
