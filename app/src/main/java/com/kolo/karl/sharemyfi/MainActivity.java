@@ -1,5 +1,7 @@
 
 package com.kolo.karl.sharemyfi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -22,14 +24,44 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.ID_ACTION_ADD).setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.ID_ACTION_ADD).setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 Intent addNew = new Intent(AddWifi.ADD_NEW_WIFI_INFO);
                 startActivity(addNew);
             }
         });
 
+        findViewById(R.id.ID_ACTION_DELETE).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getWindow().getContext());
+                builder.setTitle(R.string.TXT_DELETE_ITEM_PROMPT_TITLE);
+                builder.setMessage(R.string.TXT_DELETE_ITEM_PROMPT);
+                builder.setPositiveButton(R.string.TXT_YES, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.setNegativeButton(R.string.TXT_NO, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.create().show();
+            }
+        });
         initItems();
     }
 
@@ -58,18 +90,23 @@ public class MainActivity extends AppCompatActivity {
                 else
                     _selectionCount--;
 
-                View deleteBtn = getWindow().findViewById(R.id.ID_ACTION_DELETE);
-                if (_selectionCount <= 0)
-                {
-                    _selectionCount = 0;
-                    deleteBtn.setVisibility(View.GONE);
-                }
-                else
-                {
-                    deleteBtn.setVisibility(View.VISIBLE);
-                }
+                toggleDeleteFabVisibility();
             }
         });
+    }
+
+    private void toggleDeleteFabVisibility()
+    {
+        View deleteBtn = getWindow().findViewById(R.id.ID_ACTION_DELETE);
+        if (_selectionCount <= 0)
+        {
+            _selectionCount = 0;
+            deleteBtn.setVisibility(View.GONE);
+        }
+        else
+        {
+            deleteBtn.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

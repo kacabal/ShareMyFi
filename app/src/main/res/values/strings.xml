@@ -4,6 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="TXT_OK">Ok</string>
+    <string name="TXT_YES">Yes</string>
+    <string name="TXT_NO">No</string>
     <string name="TXT_ACTION_DELETE_ITEM">Delete</string>
     <string name="TXT_ACTION_ADD_ITEM">Add</string>
     <string name="TXT_ACTION_ADD_WIFI">Add Wifi Information</string>
@@ -15,4 +17,6 @@
     <string name="TXT_SSID_HINT">Enter Wifi name</string>
     <string name="TXT_PASSWORD_COLON">Password:</string>
     <string name="TXT_PASSWORD_HINT">Enter Password</string>
+    <string name="TXT_DELETE_ITEM_PROMPT_TITLE">Are you sure?</string>
+    <string name="TXT_DELETE_ITEM_PROMPT">This will erase the selected items and cannot be restored</string>
 </resources>
