@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kolo.karl.sharemyfi">
+<manifest package="com.kolo.karl.sharemyfi"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light">
         <activity
-            android:name=".MainActivity"
+            android:name=".ManageWifiInfo"
             android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.kolo.karl.sharemyfi.ManageWifiInfo"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".AddWifi"
             android:label="@string/TXT_ACTION_ADD_WIFI"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ManageWifiInfo"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
-                <action android:name="com.kolo.karl.sharemyfi.AddNewWifiInfo" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="com.kolo.karl.sharemyfi.AddNewWifiInfo"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kolo.karl.sharemyfi.MainActivity" />
+                android:value=".ManageWifiInfo"/>
+        </activity>
+        <activity
+            android:name=".SplashActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_splash"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
 

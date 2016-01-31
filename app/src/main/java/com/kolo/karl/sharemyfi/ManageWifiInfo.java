@@ -16,8 +16,9 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 
-public class MainActivity extends AppCompatActivity {
-    public static final String TAG = "MainActivity";
+public class ManageWifiInfo extends AppCompatActivity {
+    public static final String TAG = "ManageWifiInfo";
+    public static final String MANAGE_WIFI_INFO = "com.kolo.karl.sharemyfi.ManageWifiInfo";
     private int _selectionCount = 0;
 
     @Override

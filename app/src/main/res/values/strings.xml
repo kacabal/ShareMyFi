@@ -19,4 +19,8 @@
     <string name="TXT_PASSWORD_HINT">Enter Password</string>
     <string name="TXT_DELETE_ITEM_PROMPT_TITLE">Are you sure?</string>
     <string name="TXT_DELETE_ITEM_PROMPT">This will erase the selected items and cannot be restored</string>
+
+    <string name="title_activity_splash">ShareMyFi</string>
+    <string name="TXT_SCAN_CODE">Scan Code</string>
+    <string name="TXT_MANAGE">Manage</string>
 </resources>
