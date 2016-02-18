@@ -16,6 +16,8 @@ import android.view.View;
  */
 public class SplashActivity extends AppCompatActivity
 {
+    private static final int ONE_SECOND = 1000;
+    private static final int INITIAL_TOGGLE_DELAY = ONE_SECOND * 3;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -127,6 +129,7 @@ public class SplashActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                mTimer.cancel();
                 toggle();
             }
         });
@@ -134,7 +137,7 @@ public class SplashActivity extends AppCompatActivity
         findViewById(R.id.ID_SPLASH_ACTION_MANAGE_WIFI_INFO).setOnTouchListener(mDelayHideTouchListener);
         findViewById(R.id.ID_SPLASH_ACTION_SCAN_CODE).setOnTouchListener(mDelayHideTouchListener);
 
-        mTimer = new CountDownTimer(3000, 1000)
+        mTimer = new CountDownTimer(INITIAL_TOGGLE_DELAY, ONE_SECOND)
         {
             @Override
             public void onTick(long l)

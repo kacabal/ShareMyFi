@@ -20,11 +20,30 @@ public class ManageWifiInfo extends AppCompatActivity {
     public static final String TAG = "ManageWifiInfo";
     public static final String MANAGE_WIFI_INFO = "com.kolo.karl.sharemyfi.ManageWifiInfo";
     private int _selectionCount = 0;
+    ListView _infoListView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        _infoListView = (ListView)findViewById(R.id.ID_WIFI_LIST_MAIN);
+
+        _infoListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                CheckBox checkBox = (CheckBox) view.findViewById(R.id.ID_WIFI_INFO_CHECKBOX);
+                checkBox.performClick();
+
+                if (checkBox.isChecked())
+                    _selectionCount++;
+                else
+                    _selectionCount--;
+
+                toggleDeleteFabVisibility();
+            }
+        });
 
         findViewById(R.id.ID_ACTION_ADD).setOnClickListener(new View.OnClickListener()
         {
@@ -63,6 +82,7 @@ public class ManageWifiInfo extends AppCompatActivity {
                 builder.create().show();
             }
         });
+
         initItems();
     }
 
@@ -76,24 +96,8 @@ public class ManageWifiInfo extends AppCompatActivity {
                 c, new String[]{WifiInfoContract.InfoEntry.SSID},
                 new int[]{R.id.ID_WIFI_INFO_CHECKBOX_LABEL},
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-        ListView listView = (ListView)findViewById(R.id.ID_WIFI_LIST_MAIN);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
-            {
-                CheckBox checkBox = (CheckBox) view.findViewById(R.id.ID_WIFI_INFO_CHECKBOX);
-                checkBox.performClick();
+        _infoListView.setAdapter(adapter);
 
-                if (checkBox.isChecked())
-                    _selectionCount++;
-                else
-                    _selectionCount--;
-
-                toggleDeleteFabVisibility();
-            }
-        });
     }
 
     private void toggleDeleteFabVisibility()
