@@ -1,9 +1,11 @@
 
 package com.kolo.karl.sharemyfi;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -86,18 +88,37 @@ public class ManageWifiInfo extends AppCompatActivity {
         initItems();
     }
 
+    public class SsidQueryTask extends AsyncTask<Void, Void, Cursor>
+    {
+        Context _context = null;
+
+        public SsidQueryTask(Context context)
+        {
+            super();
+            _context = context;
+        }
+
+        @Override
+        protected Cursor doInBackground(Void... voids)
+        {
+            StorageUtil storageUtil = new StorageUtil(_context);
+            return storageUtil.getSSIDs();
+        }
+
+        @Override
+        protected void onPostExecute(Cursor cursor)
+        {
+            SimpleCursorAdapter adapter = new SimpleCursorAdapter(_context,
+                    R.layout.wifi_info,
+                    cursor, new String[]{WifiInfoContract.InfoEntry.SSID},
+                    new int[]{R.id.ID_WIFI_INFO_CHECKBOX_LABEL},
+                    0);
+            _infoListView.setAdapter(adapter);
+        }
+    }
     private void initItems()
     {
-        StorageUtil storageUtil = new StorageUtil(this);
-        Cursor c = storageUtil.getSSIDs();
-
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
-                R.layout.wifi_info,
-                c, new String[]{WifiInfoContract.InfoEntry.SSID},
-                new int[]{R.id.ID_WIFI_INFO_CHECKBOX_LABEL},
-                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-        _infoListView.setAdapter(adapter);
-
+        new SsidQueryTask(this).execute();
     }
 
     private void toggleDeleteFabVisibility()
