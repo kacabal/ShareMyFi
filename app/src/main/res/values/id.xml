@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="ID_SPLASH_ACTION_MANAGE_WIFI_INFO" type="id"></item>
+    <item name="ID_SPLASH_ACTION_SHARE_CODE" type="id"></item>
     <item name="ID_SPLASH_ACTION_SCAN_CODE" type="id"></item>
     <item name="ID_WIFI_LIST_MAIN" type="id"></item>
     <item name="ID_MAIN_ACTION_BUTTONS" type="id"></item>

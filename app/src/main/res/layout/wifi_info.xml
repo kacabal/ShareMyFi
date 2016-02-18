@@ -11,7 +11,7 @@
         android:id="@id/ID_WIFI_INFO_CHECKBOX"
         android:layout_gravity="center_vertical"
         android:textAppearance="?android:attr/textAppearanceMedium"
-    />
+        android:clickable="false"/>
 
     <TextView
         android:layout_width="wrap_content"

@@ -41,6 +41,14 @@
                 android:text="@string/TXT_SCAN_CODE"/>
 
             <Button
+                android:id="@id/ID_SPLASH_ACTION_SHARE_CODE"
+                style="?metaButtonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/TXT_SHARE_CODE"/>
+
+            <Button
                 android:id="@id/ID_SPLASH_ACTION_MANAGE_WIFI_INFO"
                 style="?metaButtonBarButtonStyle"
                 android:layout_width="0dp"

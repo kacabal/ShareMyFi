@@ -95,11 +95,12 @@ public class SplashActivity extends AppCompatActivity
                     Intent manage = new Intent(ManageWifiInfo.MANAGE_WIFI_INFO);
                     manage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(manage);
-                    finish();
+                    break;
                 }
+                case R.id.ID_SPLASH_ACTION_SHARE_CODE:
                 case R.id.ID_SPLASH_ACTION_SCAN_CODE:
                 {
-                    finish();
+                    break;
                 }
             }
 
