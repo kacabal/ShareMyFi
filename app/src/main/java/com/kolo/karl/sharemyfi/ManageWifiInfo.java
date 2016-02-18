@@ -23,6 +23,7 @@ public class ManageWifiInfo extends AppCompatActivity {
     public static final String MANAGE_WIFI_INFO = "com.kolo.karl.sharemyfi.ManageWifiInfo";
     private int _selectionCount = 0;
     ListView _infoListView = null;
+    StorageUtil _storageUtil = new StorageUtil(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +102,7 @@ public class ManageWifiInfo extends AppCompatActivity {
         @Override
         protected Cursor doInBackground(Void... voids)
         {
-            StorageUtil storageUtil = new StorageUtil(_context);
-            return storageUtil.getSSIDs();
+            return _storageUtil.getSSIDs();
         }
 
         @Override
