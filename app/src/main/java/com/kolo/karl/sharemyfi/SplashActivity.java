@@ -96,6 +96,7 @@ public class SplashActivity extends AppCompatActivity
                 {
                     Intent manage = new Intent(ManageWifiInfo.MANAGE_WIFI_INFO);
                     startActivity(manage);
+                    finish();
                     break;
                 }
                 case R.id.ID_SPLASH_ACTION_SHARE_CODE:
