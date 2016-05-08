@@ -1,9 +1,11 @@
 
 package com.kolo.karl.sharemyfi;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import android.widget.SimpleCursorAdapter;
 public class ManageWifiInfo extends AppCompatActivity {
     public static final String TAG = "ManageWifiInfo";
     public static final String MANAGE_WIFI_INFO = "com.kolo.karl.sharemyfi.ManageWifiInfo";
+    public static final String WIFI_INFO_ADDED = "com.kolo.karl.sharemyfi.WifiInfoAdded";
     private int _selectionCount = 0;
     ListView _infoListView = null;
     StorageUtil _storageUtil = new StorageUtil(this);
@@ -85,6 +88,16 @@ public class ManageWifiInfo extends AppCompatActivity {
                 builder.create().show();
             }
         });
+
+        IntentFilter infoAddedFilter = new IntentFilter(WIFI_INFO_ADDED);
+        this.registerReceiver(new BroadcastReceiver()
+        {
+            @Override
+            public void onReceive(Context context, Intent intent)
+            {
+                initItems();
+            }
+        }, infoAddedFilter);
 
         initItems();
     }

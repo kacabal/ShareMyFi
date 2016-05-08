@@ -3,6 +3,7 @@ package com.kolo.karl.sharemyfi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -39,6 +40,7 @@ public class AddWifi extends AppCompatActivity {
                 {
                     String toastMsg = getString(R.string.TXT_SAVED_COLON) + " " + ssidInput.getText();
                     Toast.makeText(AddWifi.this, toastMsg, Toast.LENGTH_SHORT).show();
+                    sendBroadcast(new Intent(ManageWifiInfo.WIFI_INFO_ADDED));
                     finish();
                 }
                 else
