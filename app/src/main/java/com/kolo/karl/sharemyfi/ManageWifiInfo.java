@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 
 public class ManageWifiInfo extends AppCompatActivity {
@@ -27,6 +28,14 @@ public class ManageWifiInfo extends AppCompatActivity {
     private int _selectionCount = 0;
     ListView _infoListView = null;
     StorageUtil _storageUtil = new StorageUtil(this);
+    private BroadcastReceiver _infoAddedReceiver = new BroadcastReceiver()
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            initItems();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +43,7 @@ public class ManageWifiInfo extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         _infoListView = (ListView)findViewById(R.id.ID_WIFI_LIST_MAIN);
 
+        // selection handler
         _infoListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -48,6 +58,19 @@ public class ManageWifiInfo extends AppCompatActivity {
                     _selectionCount--;
 
                 toggleDeleteFabVisibility();
+            }
+        });
+
+        // long-click handler; this moves to editing the item selected
+        _infoListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                Intent edit = new Intent(AddWifi.EDIT_WIFI_INFO);
+                edit.putExtra(AddWifi.EDIT_WIFI_NAME_EXTRA, ((TextView)(view.findViewById(R.id.ID_WIFI_INFO_CHECKBOX_LABEL))).getText());
+                startActivity(edit);
+                return true;
             }
         });
 
@@ -90,16 +113,18 @@ public class ManageWifiInfo extends AppCompatActivity {
         });
 
         IntentFilter infoAddedFilter = new IntentFilter(WIFI_INFO_ADDED);
-        this.registerReceiver(new BroadcastReceiver()
-        {
-            @Override
-            public void onReceive(Context context, Intent intent)
-            {
-                initItems();
-            }
-        }, infoAddedFilter);
+        registerReceiver(_infoAddedReceiver, infoAddedFilter);
 
         initItems();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+
+        if (isFinishing())
+            unregisterReceiver(_infoAddedReceiver);
     }
 
     public class SsidQueryTask extends AsyncTask<Void, Void, Cursor>

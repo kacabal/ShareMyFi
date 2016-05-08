@@ -25,7 +25,9 @@ public class StorageUtil extends SQLiteOpenHelper
 
     // StorageUtil returns
     public static final int ADDED_OK = 0;
+    public static final int DELETE_OK = 0;
     public static final int ADDED_GENERIC_ERROR = -1;
+    public static final int DELETE_GENERIC_ERROR = -1;
 
     public StorageUtil(Context context)
     {
@@ -43,8 +45,7 @@ public class StorageUtil extends SQLiteOpenHelper
         try
         {
             sqLiteDatabase.execSQL(cmd);
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             Log.d(TAG, e.toString());
         }
@@ -78,6 +79,35 @@ public class StorageUtil extends SQLiteOpenHelper
             return ADDED_GENERIC_ERROR;
         else
             return ADDED_OK;
+    }
+
+    public int deleteSSID(String ssid)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        String query = WifiInfoContract.InfoEntry.SSID + "=?";
+        String[] params = { ssid };
+        int ret = db.delete(WifiInfoContract.InfoEntry.TABLE_NAME, query, params);
+
+        if (ret == 1) // we expect only 1 row affected
+            return DELETE_OK;
+        else
+            return DELETE_GENERIC_ERROR;
+    }
+
+    // returns info of an SSID
+    public Cursor getSSID(String ssid)
+    {
+        String[] columns = {
+                WifiInfoContract.InfoEntry.PASS,
+                WifiInfoContract.InfoEntry._ID
+        };
+        String query = WifiInfoContract.InfoEntry.SSID + "=?";
+        String[] params = { ssid };
+        SQLiteDatabase db = getReadableDatabase();
+
+        return db.query(WifiInfoContract.InfoEntry.TABLE_NAME,
+                columns,
+                query, params, null, null, null);
     }
 
     public Cursor getSSIDs()

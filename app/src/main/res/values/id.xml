@@ -16,4 +16,5 @@
     <item name="ID_PASS_INPUT" type="id"></item>
     <item name="ID_WIFI_INFO_CHECKBOX" type="id"></item>
     <item name="ID_WIFI_INFO_CHECKBOX_LABEL" type="id"></item>
+    <item name="ID_WIFI_INFO_EDIT" type="id"></item>
 </resources>

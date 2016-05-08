@@ -20,7 +20,11 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="com.kolo.karl.sharemyfi.AddNewWifiInfo"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
 
+            <intent-filter>
+                <action android:name="com.kolo.karl.sharemyfi.EditWifiInfo"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
 
