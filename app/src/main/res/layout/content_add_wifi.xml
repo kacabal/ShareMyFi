@@ -34,7 +34,8 @@
             android:enabled="true"
             android:focusable="true"
             android:hint="@string/TXT_SSID_HINT"
-            android:maxLines="1"
+            android:singleLine="true"
+            android:inputType="textNoSuggestions"
             android:layout_marginLeft="@dimen/text_input_left_margin"/>
 
     </LinearLayout>
