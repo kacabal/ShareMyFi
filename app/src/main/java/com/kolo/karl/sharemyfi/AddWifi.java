@@ -1,7 +1,6 @@
 package com.kolo.karl.sharemyfi;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,7 +9,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -55,8 +53,10 @@ public class AddWifi extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String newSsid = ssidInput.getText().toString();
-                if (storageUtil.addWifiInfo(newSsid,
-                                            passInput.getText().toString()) == StorageUtil.ADDED_OK)
+                int saveRet = storageUtil.addWifiInfo(newSsid,
+                                                      passInput.getText().toString());
+
+                if (saveRet == StorageUtil.ADDED_OK)
                 {
                     String toastMsg = getString(R.string.TXT_SAVED_COLON) + " " + ssidInput.getText();
                     Toast.makeText(AddWifi.this, toastMsg, Toast.LENGTH_SHORT).show();
@@ -66,6 +66,9 @@ public class AddWifi extends AppCompatActivity {
                     {
                         // user edited the SSID, delete stale entry
                         storageUtil.deleteSSID(oldSsid);
+
+
+
                     }
 
                     sendBroadcast(new Intent(ManageWifiInfo.WIFI_INFO_ADDED));
@@ -73,9 +76,20 @@ public class AddWifi extends AppCompatActivity {
                 }
                 else
                 {
+                    String failMsg = getApplication().getString(R.string.TXT_ADD_FAILED);
+
+                    switch (saveRet)
+                    {
+                        case StorageUtil.ADD_INVALID_SSID_OR_PASSWORD:
+                            failMsg = getApplication().getString(R.string.TXT_ADD_FAILED_INVALID_SSID_OR_PASSWORD);
+                            break;
+
+                        default:
+                            break;
+                    }
                     AlertDialog err = new AlertDialog.Builder(AddWifi.this).create();
                     err.setTitle(R.string.TXT_ADD_FAILED_TITLE);
-                    err.setMessage(getApplication().getString(R.string.TXT_ADD_FAILED));
+                    err.setMessage(failMsg);
                     err.setButton(AlertDialog.BUTTON_POSITIVE,
                             getApplication().getText(R.string.TXT_OK),
                             new DialogInterface.OnClickListener()
@@ -83,7 +97,7 @@ public class AddWifi extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i)
                                 {
-                                    finish();
+                                    dialogInterface.dismiss();
                                 }
                             });
                     err.show();

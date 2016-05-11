@@ -13,6 +13,7 @@
     <string name="TXT_ADDED_COLON">Added:</string>
     <string name="TXT_SAVED_COLON">Saved:</string>
     <string name="TXT_ADD_FAILED">Save failed. Try again.</string>
+    <string name="TXT_ADD_FAILED_INVALID_SSID_OR_PASSWORD">Save failed. Invalid SSID or password.</string>
     <string name="TXT_ADD_FAILED_TITLE">Error</string>
     <string name="TXT_SSID_COLON">SSID:</string>
     <string name="TXT_SSID_HINT">Enter Wifi name</string>

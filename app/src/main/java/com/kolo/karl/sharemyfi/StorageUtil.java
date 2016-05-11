@@ -8,9 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by karl on 12/29/15.
  */
@@ -27,6 +24,7 @@ public class StorageUtil extends SQLiteOpenHelper
     public static final int ADDED_OK = 0;
     public static final int DELETE_OK = 0;
     public static final int ADDED_GENERIC_ERROR = -1;
+    public static final int ADD_INVALID_SSID_OR_PASSWORD = -2;
     public static final int DELETE_GENERIC_ERROR = -1;
 
     public StorageUtil(Context context)
@@ -65,6 +63,9 @@ public class StorageUtil extends SQLiteOpenHelper
      */
     public int addWifiInfo(String ssid, String pass)
     {
+        if (ssid.isEmpty() || pass.isEmpty())
+            return ADD_INVALID_SSID_OR_PASSWORD;
+
         ContentValues values = new ContentValues();
         values.put(WifiInfoContract.InfoEntry.SSID, ssid);
         values.put(WifiInfoContract.InfoEntry.PASS, pass);
