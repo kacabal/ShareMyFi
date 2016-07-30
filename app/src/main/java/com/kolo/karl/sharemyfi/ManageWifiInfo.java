@@ -10,22 +10,25 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Iterator;
 
 
 public class ManageWifiInfo extends AppCompatActivity {
     public static final String TAG = "ManageWifiInfo";
     public static final String MANAGE_WIFI_INFO = "com.kolo.karl.sharemyfi.ManageWifiInfo";
     public static final String WIFI_INFO_ADDED = "com.kolo.karl.sharemyfi.WifiInfoAdded";
-    private int _selectionCount = 0;
+    private HashMap<Integer, String> _selections = new HashMap<>();
     ListView _infoListView = null;
     StorageUtil _storageUtil = new StorageUtil(this);
     private BroadcastReceiver _infoAddedReceiver = new BroadcastReceiver()
@@ -52,10 +55,16 @@ public class ManageWifiInfo extends AppCompatActivity {
                 CheckBox checkBox = (CheckBox) view.findViewById(R.id.ID_WIFI_INFO_CHECKBOX);
                 checkBox.performClick();
 
+                String ssid = ((TextView)(view.findViewById(R.id.ID_WIFI_INFO_CHECKBOX_LABEL))).getText().toString();
+
                 if (checkBox.isChecked())
-                    _selectionCount++;
+                {
+                    _selections.put(i, ssid);
+                }
                 else
-                    _selectionCount--;
+                {
+                    _selections.remove(i);
+                }
 
                 toggleDeleteFabVisibility();
             }
@@ -97,6 +106,15 @@ public class ManageWifiInfo extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i)
                     {
+                        Iterator<String> iter = _selections.values().iterator();
+                        while (iter.hasNext())
+                        {
+                            String ssid = iter.next().toString();
+                            if(_storageUtil.deleteSSID(ssid) != StorageUtil.DELETE_OK)
+                                Log.d(TAG, "Failed to delete: " + ssid);
+                        }
+                        _selections.clear();
+                        initItems();
                         dialogInterface.dismiss();
                     }
                 });
@@ -162,9 +180,8 @@ public class ManageWifiInfo extends AppCompatActivity {
     private void toggleDeleteFabVisibility()
     {
         View deleteBtn = getWindow().findViewById(R.id.ID_ACTION_DELETE);
-        if (_selectionCount <= 0)
+        if (_selections.isEmpty())
         {
-            _selectionCount = 0;
             deleteBtn.setVisibility(View.GONE);
         }
         else
